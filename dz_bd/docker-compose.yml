@@ -1,0 +1,85 @@
+version: '3.8'
+
+networks:
+  mongo_cluster:
+    driver: bridge
+
+services:
+  configsvr1:
+    image: mongo:6.0
+    container_name: configsvr1
+    command: mongod --configsvr --replSet cfgrs --port 27017 --bind_ip_all
+    networks:
+      - mongo_cluster
+    volumes:
+      - configsvr1_data:/data/db
+    ports:
+      - "27001:27017"
+
+  configsvr2:
+    image: mongo:6.0
+    container_name: configsvr2
+    command: mongod --configsvr --replSet cfgrs --port 27017 --bind_ip_all
+    networks:
+      - mongo_cluster
+    volumes:
+      - configsvr2_data:/data/db
+    ports:
+      - "27002:27017"
+
+  configsvr3:
+    image: mongo:6.0
+    container_name: configsvr3
+    command: mongod --configsvr --replSet cfgrs --port 27017 --bind_ip_all
+    networks:
+      - mongo_cluster
+    volumes:
+      - configsvr3_data:/data/db
+    ports:
+      - "27003:27017"
+
+  shard1:
+    image: mongo:6.0
+    container_name: shard1
+    command: mongod --shardsvr --replSet shard1rs --port 27017 --bind_ip_all
+    networks:
+      - mongo_cluster
+    volumes:
+      - shard1_data:/data/db
+    ports:
+      - "27011:27017"
+
+  shard2:
+    image: mongo:6.0
+    container_name: shard2
+    command: mongod --shardsvr --replSet shard2rs --port 27017 --bind_ip_all
+    networks:
+      - mongo_cluster
+    volumes:
+      - shard2_data:/data/db
+    ports:
+      - "27012:27017"
+
+  mongos:
+    image: mongo:6.0
+    container_name: mongos
+    command: mongos --configdb cfgrs/configsvr1:27017,configsvr2:27017,configsvr3:27017 --bind_ip_all
+    networks:
+      - mongo_cluster
+    ports:
+      - "27017:27017"
+    depends_on:
+      - configsvr1
+      - configsvr2
+      - configsvr3
+      - shard1
+      - shard2
+    volumes:
+      - ./data:/data/import
+
+volumes:
+  configsvr1_data:
+  configsvr2_data:
+  configsvr3_data:
+  shard1_data:
+  shard2_data:
