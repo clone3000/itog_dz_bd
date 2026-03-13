@@ -1,21 +1,45 @@
-1. docker exec -it configsvr1 mongosh --eval "rs.initiate({_id:'cfgrs',configsvr:true,members:[{_id:0,host:'configsvr1:27017'},{_id:1,host:'configsvr2:27017'},{_id:2,host:'configsvr3:27017'}]})"
-2. docker exec -it shard1 mongosh --eval "rs.initiate({_id:'shard1rs',members:[{_id:0,host:'shard1:27017'}]})"
-docker exec -it shard2 mongosh --eval "rs.initiate({_id:'shard2rs',members:[{_id:0,host:'shard2:27017'}]})"
-3. docker exec -it mongos mongosh --eval "sh.addShard('shard1rs/shard1:27017')"
-docker exec -it mongos mongosh --eval "sh.addShard('shard2rs/shard2:27017')"
-4. docker exec -it mongos mongosh --eval "sh.enableSharding('UniversityDB')"
-5. docker exec -it mongos mongosh --eval "db.students.createIndex({ student_id: 'hashed' })"
-docker exec -it mongos mongosh --eval "db.grades.createIndex({ student_id: 'hashed', discipline_id: 1 })"
-6. docker exec -it mongos mongosh --eval "sh.shardCollection('UniversityDB.students', { student_id: 'hashed' })"
-docker exec -it mongos mongosh --eval "sh.shardCollection('UniversityDB.grades', { student_id: 'hashed', discipline_id: 1 })"
-7. docker exec -it mongos mongoimport --db UniversityDB --collection students --drop --jsonArray /data/import/students.json
-docker exec -it mongos mongoimport --db UniversityDB --collection disciplines --drop --jsonArray /data/import/disciplines.json
-docker exec -it mongos mongoimport --db UniversityDB --collection professors --drop --jsonArray /data/import/professors.json
-docker exec -it mongos mongoimport --db UniversityDB --collection grades --drop --jsonArray /data/import/grades.json
-8. docker exec -it mongos mongosh UniversityDB --eval "db.students.createIndex({ student_id: 1 }, { unique: true })"
-docker exec -it mongos mongosh UniversityDB --eval "db.students.createIndex({ group: 1 })"
-docker exec -it mongos mongosh UniversityDB --eval "db.students.createIndex({ last_name: 1, first_name: 1 })"
-docker exec -it mongos mongosh UniversityDB --eval "db.disciplines.createIndex({ name: 1 })"
-docker exec -it mongos mongosh UniversityDB --eval "db.professors.createIndex({ last_name: 1, first_name: 1 })"
-docker exec -it mongos mongosh UniversityDB --eval "db.grades.createIndex({ student_id: 1, discipline_name: 1 })"
-docker exec -it mongos mongosh UniversityDB --eval "db.grades.createIndex({ student_id: 1, grade: 1 })"
+1.База данных UniversityDB состоит из четырех коллекций:
+•	Students
+•	Disciplines
+•	Professors
+•	Grades
+Данная база была взята за основу из предыдущего задания.
+Весь сервис был реализован с помощью docker.
+2. Для шардинга были выбраны коллекции students и grades, так как они содержат наибольшее количество данных.
+•	Students - распределение студентов по шардам
+•	Grades - оценки студента попадают на один шард
+•	Hashed - индекс обеспечивает распределение данных
+3. Кластер состоит из:
+•	3 конфиг сервера - хранят данные о распределении данных
+•	2 шарда - хранят данные
+•	Маршрутизатор mongos - единая точка входа
+4. Команды для настройки содержатся в файле readme.txt
+5. Для тестирования использовался скрипт test.py, который выполняет 1000 операций записи и чтения.
+Тестирования проводилось в двух конфигурациях: 
+•	Три сервера и два шарда
+•	Один сервер и один шард
+
+
+
+
+
+
+
+
+
+
+
+
+
+6. Результаты тестов:
+1.	Три сервера и два шарда
+ 
+2.	Один сервер и один шард
+ 
+7. Анализ результатов:
+Шардинг не дал прироста производительности. Все данные помещаются в один сервер, нет необходимости в распределении.
+8. Простой пользовательский интерфейс позволяет осуществить поиск по базе, а так же добавить студентов и оценки.
+ 
+9. Команды для запуска сервера содержаться в файле commands.
+Полный отчет с скриншотами содержится в pdf/docx формате отчет/report.
+
