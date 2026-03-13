@@ -1,0 +1,8 @@
+[
+  {"student_id": "СТ1", "first_name": "Виктор", "last_name": "Кравчук", "group": "1"},
+  {"student_id": "СТ2", "first_name": "Альберт", "last_name": "Воламский", "group": "1"},
+  {"student_id": "СТ3", "first_name": "Наталья", "last_name": "Репина", "group": "2"},
+  {"student_id": "СТ4", "first_name": "Андрей", "last_name": "Губанов", "group": "2"},
+  {"student_id": "СТ5", "first_name": "Виктория", "last_name": "Волкова", "group": "3"},
+  {"student_id": "СТ6", "first_name": "Дмитрий", "last_name": "Попов", "group": "3"}
+]

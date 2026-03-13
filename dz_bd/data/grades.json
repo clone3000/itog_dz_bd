@@ -1,0 +1,18 @@
+[
+  {"student_id": "СТ1", "discipline_name": "Базы данных", "grade": "4"},
+  {"student_id": "СТ1", "discipline_name": "Python", "grade": "3"},
+  {"student_id": "СТ1", "discipline_name": "Статистика", "grade": "3"},
+  {"student_id": "СТ1", "discipline_name": "Инструменты промышленной разработки", "grade": "3"},
+  {"student_id": "СТ2", "discipline_name": "Python", "grade": "4"},
+  {"student_id": "СТ2", "discipline_name": "Статистика", "grade": "3"},
+  {"student_id": "СТ2", "discipline_name": "Базы данных", "grade": "4"},
+  {"student_id": "СТ2", "discipline_name": "Инструменты промышленной разработки", "grade": "4"},
+  {"student_id": "СТ3", "discipline_name": "Python", "grade": "3"},
+  {"student_id": "СТ3", "discipline_name": "Статистика", "grade": "5"},
+  {"student_id": "СТ3", "discipline_name": "Базы данных", "grade": "4"},
+  {"student_id": "СТ3", "discipline_name": "Инструменты промышленной разработки", "grade": "4"},
+  {"student_id": "СТ4", "discipline_name": "Python", "grade": "3"},
+  {"student_id": "СТ4", "discipline_name": "Статистика", "grade": "3"},
+  {"student_id": "СТ4", "discipline_name": "Базы данных", "grade": "3"},
+  {"student_id": "СТ4", "discipline_name": "Инструменты промышленной разработки", "grade": "3"}
+]

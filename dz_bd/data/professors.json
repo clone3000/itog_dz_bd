@@ -1,0 +1,7 @@
+[
+  {"professor_id": "ПРОФ1", "first_name": "Анна", "last_name": "Иванова", "degree": "Доктор наук"},
+  {"professor_id": "ПРОФ2", "first_name": "Дмитрий", "last_name": "Петров", "degree": "Кандидат наук"},
+  {"professor_id": "ПРОФ3", "first_name": "Ольга", "last_name": "Сидорова", "degree": "Доцент"},
+  {"professor_id": "ПРОФ4", "first_name": "Сергей", "last_name": "Кузнецов", "degree": "Профессор"},
+  {"professor_id": "ПРОФ5", "first_name": "Мария", "last_name": "Васильева", "degree": "Кандидат наук"}
+]
